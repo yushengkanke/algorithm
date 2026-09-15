@@ -58,3 +58,62 @@ void kmp(){
     }
 }
 ```
+```c++
+//deepseek版本
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e6 + 10;   // 按题目数据范围调整
+
+int nxt[N];               // nxt[i] = p[1..i] 的最长相等真前后缀长度（1-based）
+string s, p;              // 1-based 存储：s[1..n]，p[1..m]，s[0]/p[0] 是哨兵
+int n, m;
+
+// 预处理模式串 p 的 nxt 数组
+void buildNext() {
+    nxt[1] = 0;
+    for (int i = 2, j = 0; i <= m; i++) {
+        while (j && p[i] != p[j + 1]) j = nxt[j];
+        if (p[i] == p[j + 1]) j++;
+        nxt[i] = j;
+    }
+}
+
+// 在 s 中匹配 p，返回所有匹配的起始位置（1-based）
+vector<int> kmp() {
+    vector<int> res;
+    for (int i = 1, j = 0; i <= n; i++) {
+        while (j && s[i] != p[j + 1]) j = nxt[j];
+        if (s[i] == p[j + 1]) j++;
+        if (j == m) {
+            res.push_back(i - m + 1);
+            j = nxt[j];              // 继续找重叠匹配
+        }
+    }
+    return res;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string a, b;
+    cin >> a >> b;
+    s = " " + a;                     // 前面补一个哨兵，实现 1-based
+    p = " " + b;
+    n = a.size();
+    m = b.size();
+
+    buildNext();
+
+    // 输出 nxt 数组（按需）
+    // for (int i = 1; i <= m; i++) cout << nxt[i] << ' ';
+    // cout << '\n';
+
+    for (int pos : kmp()) cout << pos << ' ';
+    cout << '\n';
+
+    return 0;
+}
+
+```
