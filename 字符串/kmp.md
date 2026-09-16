@@ -34,6 +34,7 @@ char s[N+2],p[M+2];
 void kmp(){
     n = strlen(s+1);
     m = strlen(p+1);
+    int j=0;
     nxt[1]=0;
     for(int i=2;i<=m;i++)//处理next
     {
@@ -71,6 +72,7 @@ int n, m;
 
 // 预处理模式串 p 的 nxt 数组
 void buildNext() {
+    
     nxt[1] = 0;
     for (int i = 2, j = 0; i <= m; i++) {
         while (j && p[i] != p[j + 1]) j = nxt[j];
@@ -117,3 +119,9 @@ int main() {
 }
 
 ```
+# 最小循环覆盖  
+![](/images/字符串/最小循环覆盖.png)  
+结论：长度=n-next[n]    
+举例：对于abcabcabc来说，其next数组为000123456    
+则将其向右平移9-6位后，重叠部分重合(这也是最小循环节)。则可易知前三位为最小循环覆盖    
+
