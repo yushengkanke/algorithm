@@ -3,8 +3,8 @@
 代价分为两个部分：当前已经走过的路程和预估从当前方块到目标方块的大致路程。   
 这个预估代价通常是曼哈顿距离（最常用最简单）和欧拉距离（勾股定理斜边）  
 ```python
-def a_star_search(graph,start,goal)
-{
+def a_star_search(graph,start,goal):
+
     frontier = PriorityQueue()
     frontier.put(start,0)
     came_from = {}
@@ -23,7 +23,7 @@ def a_star_search(graph,start,goal)
                 frontier.put(next,priority)
                 came_from[next]=current
     return came_from,cost_so_far
-}
+
 
 
 ```
