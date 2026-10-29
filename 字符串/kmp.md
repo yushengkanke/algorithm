@@ -41,7 +41,7 @@ void kmp(){
         while(j>0&&p[j+1]!=p[i]){
             j=nxt[j];
         }
-        if(p[j+1]==p[j]){
+        if(p[j+1]==p[i]){
             j++;
         }
         nxt[i]=j;
